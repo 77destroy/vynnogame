@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VaultUp — Админка</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/admin.css" />
+</head>
+<body>
+  <div class="admin-shell">
+    <header class="admin-head">
+      <div>
+        <p class="eyebrow">VaultUp · Stars ★</p>
+        <h1>Админ-панель</h1>
+      </div>
+      <a class="link-app" href="/">← К приложению</a>
+    </header>
+
+    <section class="login" id="loginView">
+      <label>
+        <span>Пароль</span>
+        <input type="password" id="adminPassword" placeholder="vaultup-admin" autocomplete="current-password" />
+      </label>
+      <button type="button" class="btn" id="loginBtn">Войти</button>
+      <p class="muted" id="loginError"></p>
+    </section>
+
+    <section class="dashboard" id="dashView" hidden>
+      <nav class="tabs">
+        <button type="button" class="tab active" data-tab="users">Игроки</button>
+        <button type="button" class="tab" data-tab="withdraws">Выводы</button>
+        <button type="button" class="tab" data-tab="items">Каталог</button>
+        <button type="button" class="tab" data-tab="odds">Шансы</button>
+      </nav>
+
+      <div class="panel" data-panel="users">
+        <h2>Пользователи</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Баланс</th>
+                <th>W/L</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="usersBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="withdraws" hidden>
+        <h2>Заявки на вывод</h2>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Когда</th>
+                <th>User</th>
+                <th>Сумма</th>
+                <th>Реквизиты</th>
+                <th>Статус</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="wdBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="items" hidden>
+        <h2>Каталог предметов</h2>
+        <form class="add-item" id="addItemForm">
+          <input name="id" placeholder="id" required />
+          <input name="name" placeholder="Название" required />
+          <input name="price" type="number" placeholder="Цена" required />
+          <input name="rarity" placeholder="rarity" value="rare" />
+          <input name="color" placeholder="#2ee6a8" value="#2ee6a8" />
+          <button type="submit" class="btn compact">Добавить</button>
+        </form>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Название</th>
+                <th>Цена</th>
+                <th>Редкость</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="itemsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel" data-panel="odds" hidden>
+        <h2>Параметры шансов</h2>
+        <form class="odds-form" id="oddsForm">
+          <label>
+            <span>House edge (0–0.4)</span>
+            <input name="houseEdge" type="number" step="0.01" min="0" max="0.4" />
+          </label>
+          <label>
+            <span>Мин. шанс</span>
+            <input name="minChance" type="number" step="0.01" min="0.01" max="0.5" />
+          </label>
+          <label>
+            <span>Макс. шанс</span>
+            <input name="maxChance" type="number" step="0.01" min="0.1" max="0.95" />
+          </label>
+          <label>
+            <span>Стартовый баланс</span>
+            <input name="startingBalance" type="number" step="10" min="0" />
+          </label>
+          <button type="submit" class="btn">Сохранить</button>
+        </form>
+        <p class="muted" id="oddsMsg"></p>
+      </div>
+    </section>
+  </div>
+  <script src="/js/admin.js" type="module"></script>
+</body>
+</html>

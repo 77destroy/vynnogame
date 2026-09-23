@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#06080c" />
+  <title>VaultUp</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <link rel="stylesheet" href="/css/app.css" />
+</head>
+<body>
+  <div class="atmosphere" aria-hidden="true">
+    <div class="orb orb-a"></div>
+    <div class="orb orb-b"></div>
+    <div class="grid-fade"></div>
+  </div>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <div class="brand-text">
+        <strong class="brand-name">VaultUp</strong>
+        <span class="brand-tag">STARS ★</span>
+      </div>
+    </div>
+    <div class="balance-pill" id="balancePill">
+      <span class="balance-label">Баланс</span>
+      <strong id="balanceValue">—</strong>
+    </div>
+  </header>
+
+  <nav class="mode-tabs" role="tablist">
+    <button type="button" class="mode-tab active" role="tab" data-mode="upgrade" aria-selected="true">Апгрейд</button>
+    <button type="button" class="mode-tab" role="tab" data-mode="roulette" aria-selected="false">Рулетка</button>
+  </nav>
+
+  <main class="stage">
+    <!-- UPGRADE -->
+    <section class="mode-panel" id="modeUpgrade" data-mode-panel="upgrade">
+      <div class="hero-compose" id="upgradeStage">
+        <p class="hero-line">Апгрейд звёзд: ставка → шанс → больше ★</p>
+
+        <div class="dial-wrap">
+          <svg class="dial" viewBox="0 0 220 220" role="img" aria-label="Шанс апгрейда">
+            <defs>
+              <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#f5c542" />
+                <stop offset="100%" stop-color="#ffe08a" />
+              </linearGradient>
+            </defs>
+            <circle class="dial-track" cx="110" cy="110" r="92" />
+            <circle class="dial-progress" id="dialProgress" cx="110" cy="110" r="92" />
+            <g class="dial-needle" id="dialNeedle">
+              <line x1="110" y1="110" x2="110" y2="28" />
+              <circle cx="110" cy="110" r="6" />
+            </g>
+          </svg>
+          <div class="dial-core">
+            <span class="chance-label">шанс</span>
+            <strong class="chance-value" id="chanceValue">0%</strong>
+            <span class="mult-value" id="multValue">×0.00</span>
+          </div>
+          <div class="result-burst" id="resultBurst" hidden></div>
+        </div>
+
+        <div class="target-card" id="targetCard">
+          <div class="item-swatch" id="itemSwatch"></div>
+          <div class="target-meta">
+            <span class="rarity" id="itemRarity">—</span>
+            <h2 id="itemName">Выберите предмет</h2>
+            <p class="item-price" id="itemPrice">—</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <label class="field">
+          <span>Ставка</span>
+          <div class="bet-row">
+            <button type="button" class="chip" data-bet-delta="-50" data-bet-target="betInput">−50</button>
+            <input id="betInput" type="number" min="10" step="10" value="100" />
+            <button type="button" class="chip" data-bet-delta="50" data-bet-target="betInput">+50</button>
+            <button type="button" class="chip ghost" data-bet-max="betInput">MAX</button>
+          </div>
+        </label>
+
+        <div class="catalog" id="catalog" aria-label="Каталог предметов"></div>
+
+        <div class="cta-row">
+          <button type="button" class="btn primary" id="upgradeBtn"><span>Апгрейд</span></button>
+          <button type="button" class="btn secondary withdraw-open">Вывод</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROULETTE -->
+    <section class="mode-panel" id="modeRoulette" data-mode-panel="roulette" hidden>
+      <div class="hero-compose roulette-hero">
+        <p class="hero-line">Рулетка Stars — поставь ★ и крути множитель</p>
+
+        <div class="wheel-stage">
+          <div class="wheel-pointer" aria-hidden="true"></div>
+          <div class="wheel-outer">
+            <canvas id="wheelCanvas" width="320" height="320" aria-label="Рулетка"></canvas>
+            <div class="wheel-hub">
+              <span>VaultUp</span>
+              <strong id="wheelHint">×?</strong>
+            </div>
+          </div>
+          <div class="wheel-glow" id="wheelGlow" hidden></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="pick-row" id="pickRow" aria-label="Выбор множителя"></div>
+
+        <label class="field">
+          <span>Ставка</span>
+          <div class="bet-row">
+            <button type="button" class="chip" data-bet-delta="-50" data-bet-target="rouletteBet">−50</button>
+            <input id="rouletteBet" type="number" min="10" step="10" value="50" />
+            <button type="button" class="chip" data-bet-delta="50" data-bet-target="rouletteBet">+50</button>
+            <button type="button" class="chip ghost" data-bet-max="rouletteBet">MAX</button>
+          </div>
+        </label>
+
+        <div class="cta-row">
+          <button type="button" class="btn primary" id="spinBtn"><span>Крутить</span></button>
+          <button type="button" class="btn secondary withdraw-open">Вывод</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" hidden></div>
+
+  <dialog class="sheet" id="withdrawSheet">
+    <form method="dialog" class="sheet-inner" id="withdrawForm">
+      <header>
+        <h3>Вывод Stars ★</h3>
+        <button type="button" class="icon-close" id="withdrawClose" aria-label="Закрыть">×</button>
+      </header>
+      <label class="field">
+        <span>Сумма</span>
+        <input id="wdAmount" type="number" min="50" step="10" required />
+      </label>
+      <label class="field">
+        <span>Способ</span>
+        <select id="wdMethod">
+          <option value="card">Карта</option>
+          <option value="crypto">Крипто</option>
+          <option value="sbp">СБП</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Реквизиты</span>
+        <input id="wdDetails" type="text" maxlength="200" placeholder="Номер карты / кошелёк" required />
+      </label>
+      <p class="hint">Stars спишутся сразу; админ подтвердит вывод (демо).</p>
+      <button type="submit" class="btn primary full">Отправить заявку</button>
+    </form>
+  </dialog>
+
+  <dialog class="sheet" id="resultSheet">
+    <div class="sheet-inner result-panel">
+      <p class="result-kicker" id="resultKicker">Результат</p>
+      <h3 id="resultTitle">—</h3>
+      <p id="resultBody">—</p>
+      <button type="button" class="btn primary full" id="resultOk">Продолжить</button>
+    </div>
+  </dialog>
+
+  <script src="/js/app.js" type="module"></script>
+</body>
+</html>
