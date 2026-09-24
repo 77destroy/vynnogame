@@ -50,3 +50,37 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", onScroll);
 })();
+
+(function () {
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var reveals = Array.prototype.slice.call(document.querySelectorAll(".reveal"));
+
+  if (reduce || !("IntersectionObserver" in window)) {
+    reveals.forEach(function (el) { el.classList.add("is-in"); });
+  } else {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-in");
+        observer.unobserve(entry.target);
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.12 });
+
+    reveals.forEach(function (el) { observer.observe(el); });
+  }
+
+  if (reduce) return;
+
+  Array.prototype.forEach.call(document.querySelectorAll(".toc li"), function (row) {
+    row.addEventListener("pointermove", function (event) {
+      if (event.pointerType === "touch") return;
+      var box = row.getBoundingClientRect();
+      var x = (event.clientX - box.left) / box.width - 0.5;
+      var y = (event.clientY - box.top) / box.height - 0.5;
+      row.style.transform = "translate3d(" + (x * 22).toFixed(2) + "px, " + (y * 14 - 7).toFixed(2) + "px, 0)";
+    });
+    row.addEventListener("pointerleave", function () {
+      row.style.transform = "";
+    });
+  });
+})();

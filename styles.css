@@ -23,10 +23,11 @@
 }
 
 :root {
-  --paper: #f4f0e6;
-  --ink: #14120e;
-  --copper: #b85c38;
-  --line: rgba(20, 18, 14, 0.2);
+  --paper: #f3eef8;
+  --ink: #1a1028;
+  --accent: #7c3aed;
+  --highlight: #c4b5fd;
+  --line: rgba(26, 16, 40, 0.18);
   --gutter: 1.2rem;
   --rail: 4.5rem;
   color-scheme: light;
@@ -41,6 +42,7 @@
 html {
   background: var(--paper);
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
@@ -71,7 +73,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid var(--copper);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
@@ -170,7 +172,7 @@ h3,
 }
 
 .rail a[aria-current="true"] .rail-num {
-  box-shadow: inset 0 -1.5px 0 var(--copper);
+  box-shadow: inset 0 -1.5px 0 var(--accent);
 }
 
 .rail-name {
@@ -187,11 +189,31 @@ h3,
 
 .hero {
   container-type: inline-size;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   min-height: calc(100svh - 3.4rem);
   min-height: calc(100dvh - 3.4rem);
   display: flex;
   flex-direction: column;
   padding: 1.35rem var(--gutter) 1.6rem;
+}
+
+.hero-light {
+  position: absolute;
+  inset: -18% -12%;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 48% at 16% 28%, rgba(196, 181, 253, 0.95), transparent 68%),
+    radial-gradient(34% 42% at 86% 74%, rgba(124, 58, 237, 0.32), transparent 70%),
+    radial-gradient(26% 30% at 58% 12%, rgba(196, 181, 253, 0.45), transparent 72%);
+}
+
+.nameplate,
+.hero-body {
+  position: relative;
+  z-index: 1;
 }
 
 .nameplate {
@@ -240,8 +262,19 @@ h1 {
 .line-accent {
   font-style: italic;
   font-weight: 500;
-  color: var(--copper);
+  color: var(--accent);
   padding-left: 0.72em;
+}
+
+.glow-line {
+  height: 1px;
+  width: min(100%, 46rem);
+  margin: 1.45rem 0 0;
+  background: linear-gradient(90deg, transparent, var(--accent) 18%, var(--highlight) 50%, var(--accent) 82%, transparent);
+  background-size: 200% 100%;
+  box-shadow:
+    0 0 10px rgba(124, 58, 237, 0.85),
+    0 0 22px rgba(196, 181, 253, 0.95);
 }
 
 .lede {
@@ -249,9 +282,7 @@ h1 {
   flex-direction: column;
   align-items: flex-start;
   gap: 0.2rem;
-  margin: 1.6rem 0 0;
-  padding-top: 0.9rem;
-  border-top: 1px solid var(--line);
+  margin: 0.85rem 0 0;
   font-size: 1.05rem;
   font-weight: 500;
   letter-spacing: -0.01em;
@@ -286,7 +317,7 @@ h1 {
 .folio {
   order: -1;
   margin: 0;
-  color: var(--copper);
+  color: var(--accent);
   font-size: clamp(3.25rem, 11vw, 6.75rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -359,7 +390,7 @@ h3 {
 }
 
 .step-num {
-  color: var(--copper);
+  color: var(--accent);
   font-size: clamp(2.8rem, 8vw, 4.4rem);
   line-height: 1;
   letter-spacing: -0.04em;
@@ -374,7 +405,8 @@ h3 {
 }
 
 .theses {
-  border-left: 1px solid var(--copper);
+  border-left: 1px solid var(--accent);
+  box-shadow: -8px 0 18px -14px rgba(124, 58, 237, 0.9);
   padding-left: 1.15rem;
 }
 
@@ -387,10 +419,22 @@ h3 {
 }
 
 .contact {
+  position: relative;
   background: var(--ink);
   color: var(--paper);
-  border-top: 1px solid var(--copper);
   padding: 3.25rem var(--gutter) 2.6rem;
+}
+
+.contact::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--highlight) 18%, var(--accent) 50%, var(--highlight) 82%, transparent);
+  background-size: 200% 100%;
+  box-shadow: 0 0 16px rgba(196, 181, 253, 0.85);
 }
 
 .contact-inner {
@@ -523,7 +567,7 @@ h3 {
     font-weight: 550;
     letter-spacing: 0.01em;
     opacity: 0;
-    border-bottom: 1px solid var(--copper);
+    border-bottom: 1px solid var(--accent);
     pointer-events: none;
     transition: opacity 0.25s ease;
   }
@@ -548,7 +592,7 @@ h3 {
     justify-content: space-between;
     align-items: baseline;
     gap: 2rem;
-    margin-top: 2.1rem;
+    margin-top: 1rem;
     font-size: 1.28rem;
   }
 
@@ -629,25 +673,77 @@ h3 {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .line,
-  .lede span {
-    animation: rise 0.9s cubic-bezier(0.16, 0.84, 0.3, 1) both;
-  }
+.toc li {
+  transition: transform 0.45s cubic-bezier(0.16, 0.84, 0.3, 1), background-color 0.45s ease;
+}
 
-  .line-accent {
-    animation-delay: 0.1s;
-  }
-
-  .lede span {
-    animation-delay: 0.24s;
+@media (hover: hover) and (pointer: fine) {
+  .toc li:hover {
+    transform: translateY(-6px);
+    background-color: rgba(196, 181, 253, 0.34);
   }
 }
 
-@keyframes rise {
+@media (prefers-reduced-motion: no-preference) {
+  .hero-light {
+    animation: drift 22s ease-in-out infinite alternate;
+    will-change: transform;
+  }
+
+  .glow-line,
+  .contact::before {
+    animation: glow-shift 8s linear infinite;
+  }
+
+  .line,
+  .lede span {
+    animation: reveal 1.05s cubic-bezier(0.16, 0.84, 0.3, 1) both;
+  }
+
+  .line-accent {
+    animation-delay: 0.16s;
+  }
+
+  .lede span {
+    animation-delay: 0.38s;
+  }
+
+  .js .reveal {
+    opacity: 0;
+    transform: translate3d(0, 1.35rem, 0);
+    transition: opacity 0.75s ease, transform 0.75s cubic-bezier(0.16, 0.84, 0.3, 1);
+  }
+
+  .js .reveal.is-in {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: translate3d(-3.5%, -2%, 0) scale(1);
+  }
+
+  to {
+    transform: translate3d(4.5%, 3.5%, 0) scale(1.07);
+  }
+}
+
+@keyframes glow-shift {
+  from {
+    background-position: 0% 50%;
+  }
+
+  to {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes reveal {
   from {
     opacity: 0;
-    transform: translateY(0.85rem);
+    transform: translate3d(0, 1.7rem, 0);
   }
 
   to {
@@ -659,7 +755,8 @@ h3 {
 @media (prefers-reduced-motion: reduce) {
   .contact address a,
   .wordmark,
-  .rail-name {
+  .rail-name,
+  .toc li {
     transition: none;
   }
 }
