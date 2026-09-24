@@ -131,7 +131,10 @@ h3,
 
 .rail ol {
   display: flex;
+  flex: 1;
+  justify-content: flex-end;
   gap: 0.1rem;
+  min-width: 0;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -141,8 +144,10 @@ h3,
   position: relative;
   display: grid;
   place-items: center;
-  min-width: 2.5rem;
-  min-height: 2.5rem;
+  flex: 1 1 2.4rem;
+  max-width: 2.75rem;
+  min-width: 2.4rem;
+  min-height: 2.75rem;
   color: inherit;
   text-decoration: none;
 }
@@ -222,9 +227,9 @@ h3,
 
 h1 {
   margin: 0;
-  font-size: clamp(2.9rem, 13.2cqi, 9.75rem);
-  line-height: 0.88;
-  letter-spacing: -0.035em;
+  font-size: clamp(3.55rem, 21.5cqi, 11rem);
+  line-height: 1.28;
+  letter-spacing: -0.03em;
   font-weight: 500;
 }
 
@@ -282,8 +287,8 @@ h1 {
   order: -1;
   margin: 0;
   color: var(--copper);
-  font-size: clamp(3.1rem, 12vw, 7.4rem);
-  line-height: 0.78;
+  font-size: clamp(3.25rem, 11vw, 6.75rem);
+  line-height: 1;
   letter-spacing: -0.04em;
 }
 
@@ -356,7 +361,7 @@ h3 {
 .step-num {
   color: var(--copper);
   font-size: clamp(2.8rem, 8vw, 4.4rem);
-  line-height: 0.8;
+  line-height: 1;
   letter-spacing: -0.04em;
 }
 
@@ -490,11 +495,15 @@ h3 {
   }
 
   .rail ol {
+    flex: none;
     flex-direction: column;
+    justify-content: center;
     gap: 0.35rem;
   }
 
   .rail a {
+    flex: none;
+    max-width: none;
     min-width: 2.75rem;
     min-height: 2.75rem;
   }
