@@ -61,8 +61,11 @@ a {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 1.25rem clamp(1.25rem, 4vw, 3rem);
-  mix-blend-mode: multiply;
+  padding: 1rem clamp(1.25rem, 4vw, 3rem);
+  background: rgba(243, 251, 249, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(92, 45, 145, 0.08);
 }
 
 .logo {
@@ -105,8 +108,13 @@ a {
   min-height: 100svh;
   display: grid;
   align-items: end;
-  padding: clamp(6rem, 14vh, 9rem) clamp(1.25rem, 5vw, 4.5rem) clamp(3rem, 8vh, 5rem);
+  padding: clamp(5.5rem, 12vh, 8rem) clamp(1.25rem, 5vw, 4.5rem) clamp(3.5rem, 9vh, 5.5rem);
   overflow: hidden;
+  isolation: isolate;
+}
+
+.hero-content {
+  padding-bottom: 0.25rem;
 }
 
 .hero-media {
