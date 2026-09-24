@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Line — студия сайтов</title>
+  <meta name="description" content="Line — студия, которая создаёт выразительные сайты. Tiffany и фиолет, чистота линии и характер бренда." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Syne:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="logo" href="#top" aria-label="Line — на главную">Line</a>
+    <nav class="nav" aria-label="Основная навигация">
+      <a href="#work">Работа</a>
+      <a href="#approach">Подход</a>
+      <a href="#contact" class="nav-cta">Связаться</a>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="brand">
+      <div class="hero-media" aria-hidden="true">
+        <div class="hero-wash"></div>
+        <svg class="hero-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+          <path class="line line-a" d="M-40,620 C280,480 420,760 720,520 C980,320 1180,680 1500,420" />
+          <path class="line line-b" d="M-60,380 C260,560 480,220 760,400 C1040,580 1220,260 1480,340" />
+          <path class="line line-c" d="M-20,200 C340,280 520,80 820,180 C1100,270 1280,120 1460,200" />
+        </svg>
+        <div class="hero-orb hero-orb-tiffany"></div>
+        <div class="hero-orb hero-orb-violet"></div>
+      </div>
+
+      <div class="hero-content">
+        <h1 id="brand" class="brand">Line</h1>
+        <p class="headline">Сайты, в которых есть линия характера</p>
+        <p class="lede">Мы проектируем и собираем цифровые пространства — спокойные, точные и запоминающиеся.</p>
+        <div class="cta-group">
+          <a class="btn btn-primary" href="#contact">Обсудить проект</a>
+          <a class="btn btn-ghost" href="#work">Смотреть подход</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section work" id="work" aria-labelledby="work-title">
+      <div class="section-inner">
+        <p class="section-kicker">Что делаем</p>
+        <h2 id="work-title">Создаём сайты от идеи до запуска</h2>
+        <p class="section-copy">
+          От первого эскиза до живой страницы — выстраиваем структуру, визуальный язык
+          и взаимодействие так, чтобы бренд звучал ясно на любом экране.
+        </p>
+        <ul class="work-list">
+          <li>
+            <span class="work-name">Лендинги</span>
+            <span class="work-desc">Один экран — одно обещание. Сильный первый кадр и путь к действию.</span>
+          </li>
+          <li>
+            <span class="work-name">Корпоративные сайты</span>
+            <span class="work-desc">Структура, которая рассказывает о компании без лишнего шума.</span>
+          </li>
+          <li>
+            <span class="work-name">Редизайн</span>
+            <span class="work-desc">Обновляем визуал и архитектуру, сохраняя узнаваемость бренда.</span>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section approach" id="approach" aria-labelledby="approach-title">
+      <div class="section-inner approach-grid">
+        <div class="approach-visual" aria-hidden="true">
+          <div class="panel">
+            <span class="panel-brand">Line</span>
+            <div class="panel-stroke"></div>
+            <div class="panel-block"></div>
+          </div>
+        </div>
+        <div class="approach-text">
+          <p class="section-kicker">Подход</p>
+          <h2 id="approach-title">Чистота линии. Смелость цвета.</h2>
+          <p class="section-copy">
+            Вдохновляемся ясностью Tiffany и глубиной фиолетового — сочетаем сдержанный
+            люкс с современным акцентом. Каждый проект начинается с одной сильной мысли
+            и развивается без визуального шума.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact" aria-labelledby="contact-title">
+      <div class="section-inner contact-inner">
+        <p class="section-kicker">Контакт</p>
+        <h2 id="contact-title">Готовы нарисовать вашу линию</h2>
+        <p class="section-copy">Расскажите о проекте — ответим и предложим следующий шаг.</p>
+        <form class="contact-form" action="#" method="post">
+          <label>
+            <span>Имя</span>
+            <input type="text" name="name" placeholder="Как к вам обращаться" required autocomplete="name" />
+          </label>
+          <label>
+            <span>Email</span>
+            <input type="email" name="email" placeholder="you@studio.ru" required autocomplete="email" />
+          </label>
+          <label class="full">
+            <span>О проекте</span>
+            <textarea name="message" rows="4" placeholder="Коротко: цель сайта и сроки" required></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary">Отправить</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <span class="footer-brand">Line</span>
+    <span class="footer-note">Студия сайтов · Tiffany × Violet</span>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
